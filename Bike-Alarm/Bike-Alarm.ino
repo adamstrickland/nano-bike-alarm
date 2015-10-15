@@ -33,9 +33,9 @@
 #include <Adafruit_FONA.h>
 #include <SPI.h>
 #include <MFRC522.h>
-#include "I2Cdev.h"
+#include <I2Cdev.h>
 
-#include "MPU6050_6Axis_MotionApps20.h"
+#include <MPU6050_6Axis_MotionApps20.h>
 //#include "MPU6050.h" // not necessary if using MotionApps include file
 
 // Arduino Wire library is required if I2Cdev I2CDEV_ARDUINO_WIRE implementation
@@ -705,7 +705,7 @@ bool sendAlert()
   char coord[13];
   char gpsdata[80];
   //get GPS location
-  fona.getGPSlocation(gpsdata, 80);
+  fona.getGPS(0, gpsdata, 80);
   
   Serial.println(gpsdata);
   char _sectionIndex = 0;
@@ -893,7 +893,7 @@ void loop() {
 #endif          
           // otherwise, check for DMP data ready interrupt (this should happen frequently)
       } else if (mpuIntStatus & 0x02) {
-          // wait for correct available data length, should be a VERY short wait
+          // wait for correct available data :length, should be a VERY short wait
           while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
 
           // read a packet from FIFO
